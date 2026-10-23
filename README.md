@@ -30,7 +30,7 @@ Poppins · Inter · Great Vibes load from Google Fonts automatically.
 | File | Purpose |
 |---|---|
 | `public/flyer/background-9x16.png` | The permanent O Studio shell (black bg, gold linework, logo, scroll panel, footer) at 1080×1920 or larger — export from your design source |
-| `public/flyer/logo.png` | Logo overlay (only used when the background asset is absent) |
+| `public/flyer/logo.svg` | Your logo (top-right of the flyer). Vector — crisp at export size. Text in the SVG should be converted to outlines |
 | `public/flyer/brush-mask.png` | Brush/torn edge mask for subject photos (matches your Image 2 treatment) |
 | `public/images/*.jpg` | Curated subject photos (paths registered in `src/data/images.json`) |
 

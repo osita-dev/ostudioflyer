@@ -52,6 +52,6 @@ export const FLYER_COLORS = {
  *  (Typography is NOT file-based — it comes from Google Fonts via index.html.) */
 export const ASSET_PATHS = {
   background: "/flyer/background-9x16.png",
-  logo: "/flyer/logo.png",
+  logo: "/flyer/logo.svg",
   mask: "/flyer/brush-mask.png",
 } as const;

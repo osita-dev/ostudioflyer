@@ -16,7 +16,9 @@ export interface ShellAssets {
 function loadImage(url: string): Promise<HTMLImageElement | null> {
   return new Promise((resolve) => {
     const img = new Image();
-    img.onload = () => resolve(img);
+    // naturalWidth guard: an SVG without width/height/viewBox loads "fine"
+    // but has zero intrinsic size — it would silently vanish on canvas.
+    img.onload = () => resolve(img.naturalWidth > 0 ? img : null);
     img.onerror = () => resolve(null);
     img.src = url;
   });

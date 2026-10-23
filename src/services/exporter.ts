@@ -78,7 +78,12 @@ function paintShell(ctx: CanvasRenderingContext2D, assets: ShellAssets | null) {
   // Logo (asset or text fallback)
   const l = SHELL.logo;
   if (assets?.logo) {
-    ctx.drawImage(assets.logo, l.x, l.y, l.w, l.h);
+    // Contain-fit, centred — mirrors the DOM preview's objectFit: "contain".
+    const img = assets.logo;
+    const scale = Math.min(l.w / img.naturalWidth, l.h / img.naturalHeight);
+    const w = img.naturalWidth * scale;
+    const h = img.naturalHeight * scale;
+    ctx.drawImage(img, l.x + (l.w - w) / 2, l.y + (l.h - h) / 2, w, h);
   } else {
     ctx.textAlign = "center";
     ctx.fillStyle = FLYER_COLORS.gold;
