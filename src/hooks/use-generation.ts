@@ -3,7 +3,7 @@
 // Stage events drive the progress UI; errors surface with actionable hints.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { GenerationError, runGeneration } from "@/domain/pipeline";
 import { recentGists } from "@/domain/selectors";
@@ -70,7 +70,11 @@ export function useGeneration() {
     reset,
     isPending: mutation.isPending,
     record: mutation.data ?? null,
-    error: mutation.isError ? toErrorInfo(mutation.error) : null,
+    // useMemo keeps error identity stable → the toast effect fires once.
+    error: useMemo(
+      () => (mutation.isError ? toErrorInfo(mutation.error) : null),
+      [mutation.isError, mutation.error]
+    ),
     stageInfo,
     /** S1 input — exposed so the UI can show "30 gists loaded" honestly */
     gistCount: (records: ContentRecord[]) => recentGists(records).length,

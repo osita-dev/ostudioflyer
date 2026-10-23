@@ -18,6 +18,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { StageProgress } from "@/components/studio/StageProgress";
 import { useGeneration } from "@/hooks/use-generation";
+import { toast } from "sonner";
 import { useStudio } from "@/hooks/use-studio";
 import { getActiveLibrary, getCategory } from "@/domain/library";
 import {
@@ -59,6 +60,11 @@ const Generate = () => {
       navigate("/", { replace: true });
     }
   }, [record, saveDraft, navigate]);
+
+  // Failures are never silent: the inline card explains, the toast announces.
+  useEffect(() => {
+    if (error) toast.error(error.message, { description: error.hint });
+  }, [error]);
 
   const category = getCategory(sel.categoryId);
   const directions = useMemo(

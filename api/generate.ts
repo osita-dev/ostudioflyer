@@ -154,8 +154,30 @@ function isNetworkError(err: unknown): boolean {
   const code = (err as { code?: string }).code ?? cause?.code ?? "";
   return (
     err.name === "TypeError" ||
+    err.name === "TimeoutError" ||
     /ENOTFOUND|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|EPIPE|CONNECT_TIMEOUT/.test(code)
   );
+}
+
+function isTimeout(err: unknown): boolean {
+  return err instanceof Error && err.name === "TimeoutError";
+}
+
+/** Human-readable cause for an upstream HTTP status — never a bare number. */
+function upstreamMessage(status: number, model: string): string {
+  if (status === 401 || status === 403)
+    return "Groq rejected the API key — check GROQ_API_KEY (Vercel env vars, or .env.local for dev).";
+  if (status === 404)
+    return `Model not found — check GROQ_MODEL (currently "${model}").`;
+  if (status === 429)
+    return "Rate limited by Groq — too many requests for this key's tier. Wait a minute, then try again.";
+  if (status === 400)
+    return "Groq rejected the request (bad parameters). If it repeats, check the server logs.";
+  if (status === 503)
+    return "Groq is at capacity right now (many users online). Try again in a minute.";
+  if (status >= 500)
+    return `The model provider had a server error (${status}). Try again shortly.`;
+  return `Model provider error (${status}).`;
 }
 
 export default async function handler(
@@ -223,6 +245,9 @@ export default async function handler(
         Authorization: `Bearer ${key}`,
       },
       body: JSON.stringify(body),
+      // Per-attempt cap: a hung socket fails fast and gets retried, instead of
+      // freezing the user behind a spinner.
+      signal: AbortSignal.timeout(20_000),
     });
   };
 
@@ -262,7 +287,7 @@ export default async function handler(
     if (!upstream.ok) {
       const detail = await upstream.text().catch(() => "");
       console.error("upstream error", upstream.status, detail.slice(0, 400));
-      res.status(502).json({ error: `Model provider error (${upstream.status}).` });
+      res.status(502).json({ error: upstreamMessage(upstream.status, model) });
       return;
     }
 
@@ -297,6 +322,13 @@ export default async function handler(
     });
   } catch (err) {
     console.error("generate failed", err);
+    if (isTimeout(err)) {
+      res.status(502).json({
+        error:
+          "The model took too long to respond — your connection may be slow. Try again.",
+      });
+      return;
+    }
     if (isNetworkError(err)) {
       res.status(502).json({
         error:
