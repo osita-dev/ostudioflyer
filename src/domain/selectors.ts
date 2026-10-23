@@ -88,6 +88,8 @@ export function directionChoices(category: Category, records: ContentRecord[]): 
 export interface SubjectChoice extends FlatSubject {
   tier: Tier;
   weight: number;
+  /** True when the user deviated from the recommendation (stored on the record). */
+  overridden: boolean;
 }
 
 export function subjectChoices(
@@ -96,7 +98,7 @@ export function subjectChoices(
 ): SubjectChoice[] {
   return flat.map((f) => {
     const tier = subjectTier(records, f.subject.id);
-    return { ...f, tier, weight: tierWeight(tier) };
+    return { ...f, tier, weight: tierWeight(tier), overridden: false };
   });
 }
 

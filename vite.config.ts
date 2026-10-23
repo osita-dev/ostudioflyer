@@ -14,7 +14,7 @@ import type { IncomingMessage, ServerResponse } from "node:http"
 function apiDevBridge() {
   return {
     name: "ostudio-api-dev-bridge",
-    apply: "dev" as const,
+    apply: "serve" as const,
     configureServer(server: import("vite").ViteDevServer) {
       console.log("  [ostudio] dev bridge armed → POST /api/generate runs api/generate.ts")
 

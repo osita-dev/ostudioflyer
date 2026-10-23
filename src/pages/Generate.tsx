@@ -82,6 +82,9 @@ const Generate = () => {
     sel.directionId !== rec.direction.id ||
     sel.subjectId !== rec.subject.id;
 
+  /** The pick handed to the pipeline — carries whether the user steered it. */
+  const pick = subject ? { ...subject, overridden } : null;
+
   const pickReady = !!(category && direction && subject);
   const quotaOk = promoQuotaOk(records);
 
@@ -128,7 +131,7 @@ const Generate = () => {
               className="bg-gold text-black hover:bg-gold/90"
               onClick={() => {
                 reset();
-                if (pickReady) start(subject!, records);
+                if (pickReady && pick) start(pick, records);
               }}
             >
               Try again
@@ -242,7 +245,7 @@ const Generate = () => {
             size="lg"
             className="w-full bg-gold text-black hover:bg-gold/90"
             disabled={!pickReady}
-            onClick={() => pickReady && start(subject!, records)}
+            onClick={() => pickReady && pick && start(pick, records)}
           >
             <Sparkles className="h-4 w-4" /> Continue
           </Button>

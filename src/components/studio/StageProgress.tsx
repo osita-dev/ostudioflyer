@@ -42,7 +42,7 @@ export function StageProgress({ stageInfo }: { stageInfo: StageInfo | null }) {
         />
       </div>
       <ul className="space-y-2 pt-1">
-        {ROWS.map((row, i) => {
+        {ROWS.map((row) => {
           const rowIdx = ORDER.indexOf(row.stage);
           const done = idx > rowIdx;
           const active = idx === rowIdx;
