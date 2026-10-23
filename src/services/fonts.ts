@@ -1,13 +1,13 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Brand font loader + guard (Invariant 7, NFR-04).
-// Self-hosted woff2 files in /public/fonts. If a file exists it MUST load
-// before export — we hard-fail rather than silently ship wrong typography.
-// If files are absent the app runs in visible "fallback typography" mode.
+// Brand font loader (Invariant 7). Typography comes from Google Fonts (the
+// <link> in index.html): Poppins (headline), Inter (body), Great Vibes
+// (script). Preview and canvas export paint the SAME family stacks
+// (FLYER_FONTS in domain/shell), so even if the CDN is unreachable the PNG
+// matches the preview exactly. ensureFonts() just warms the faces so layout
+// measurement and rasterisation happen after load, not before.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { ASSET_PATHS } from "@/domain/shell";
-
-export type FontState = "loaded" | "fallback" | "error";
+export type FontState = "loaded" | "fallback";
 
 export interface FontStatus {
   headline: FontState;
@@ -17,6 +17,18 @@ export interface FontStatus {
   anyBrandMissing: boolean;
 }
 
+/** Every face the flyer paints (must mirror FLYER_FONTS in domain/shell). */
+const FACES: Record<"headline" | "body" | "script", string[]> = {
+  headline: ["300 100px 'Poppins'", "600 100px 'Poppins'", "700 100px 'Poppins'"],
+  body: [
+    "400 100px 'Inter'",
+    "500 100px 'Inter'",
+    "600 100px 'Inter'",
+    "700 100px 'Inter'",
+  ],
+  script: ["400 100px 'Great Vibes'"],
+};
+
 const status: FontStatus = {
   headline: "fallback",
   body: "fallback",
@@ -25,26 +37,19 @@ const status: FontStatus = {
   anyBrandMissing: false,
 };
 
-async function fileReachable(url: string): Promise<boolean> {
-  try {
-    const res = await fetch(url, { method: "HEAD" });
-    return res.ok;
-  } catch {
-    return false;
-  }
-}
+const LOAD_TIMEOUT_MS = 10_000;
 
-async function ensureOne(
-  key: "headline" | "body" | "script"
-): Promise<FontState> {
-  const { file, family } = ASSET_PATHS.fonts[key];
-  if (!(await fileReachable(file))) return "fallback";
+async function loadGroup(faces: string[]): Promise<FontState> {
   try {
-    await document.fonts.load(`700 100px ${family}`);
-    await document.fonts.load(`400 100px ${family}`);
-    return document.fonts.check(`700 100px ${family}`) ? "loaded" : "error";
+    const all = Promise.all(faces.map((f) => document.fonts.load(f)));
+    const timedOut = new Promise<"timeout">((resolve) =>
+      setTimeout(() => resolve("timeout"), LOAD_TIMEOUT_MS)
+    );
+    const result = await Promise.race([all, timedOut]);
+    if (result === "timeout") return "fallback"; // offline / CDN blocked
+    return document.fonts.check(faces[0]) ? "loaded" : "fallback";
   } catch {
-    return "error";
+    return "fallback";
   }
 }
 
@@ -53,9 +58,9 @@ let inflight: Promise<FontStatus> | null = null;
 export function ensureFonts(): Promise<FontStatus> {
   if (!inflight) {
     inflight = (async () => {
-      status.headline = await ensureOne("headline");
-      status.body = await ensureOne("body");
-      status.script = await ensureOne("script");
+      status.headline = await loadGroup(FACES.headline);
+      status.body = await loadGroup(FACES.body);
+      status.script = await loadGroup(FACES.script);
       const states = [status.headline, status.body, status.script];
       status.anyBrandLoaded = states.some((s) => s === "loaded");
       status.anyBrandMissing = states.some((s) => s !== "loaded");
@@ -69,12 +74,12 @@ export function getFontStatus(): FontStatus {
   return status;
 }
 
-/** Export guard: throws if a brand font was supplied but did not load. */
+/**
+ * Export guard: waits until faces are loaded (or known-fallback) so the canvas
+ * rasterises the same typography the preview shows. With CDN fonts there is
+ * nothing "present but broken" like a bad woff2 file, and preview === export
+ * holds by construction — so no hard-fail.
+ */
 export async function guardFontsForExport(): Promise<void> {
-  const s = await ensureFonts();
-  if (s.headline === "error" || s.body === "error" || s.script === "error") {
-    throw new Error(
-      "A brand font file exists but failed to load. Fix /public/fonts before exporting."
-    );
-  }
+  await ensureFonts();
 }

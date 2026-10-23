@@ -145,6 +145,19 @@ function extractJson(text: string): unknown {
   return JSON.parse(cleaned.slice(start, end + 1));
 }
 
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** Transient network failures worth retrying (DNS blips, resets, timeouts). */
+function isNetworkError(err: unknown): boolean {
+  if (!(err instanceof Error)) return false;
+  const cause = (err as Error & { cause?: { code?: string } }).cause;
+  const code = (err as { code?: string }).code ?? cause?.code ?? "";
+  return (
+    err.name === "TypeError" ||
+    /ENOTFOUND|ECONNRESET|ECONNREFUSED|ETIMEDOUT|EAI_AGAIN|EPIPE|CONNECT_TIMEOUT/.test(code)
+  );
+}
+
 export default async function handler(
   req: { method?: string; body?: unknown },
   res: {
@@ -213,11 +226,25 @@ export default async function handler(
     });
   };
 
+  // Transient DNS/network blips (ENOTFOUND etc.) get a couple of retries —
+  // a one-click daily tool shouldn't fail on a momentary connectivity hiccup.
+  const callModelWithRetry = async (maxTokens: number): Promise<Response> => {
+    for (let attempt = 1; ; attempt++) {
+      try {
+        return await callModel(maxTokens);
+      } catch (err) {
+        if (!isNetworkError(err) || attempt >= 3) throw err;
+        console.error(`network error reaching Groq (attempt ${attempt}/3):`, err);
+        await sleep(attempt === 1 ? 1_000 : 3_000);
+      }
+    }
+  };
+
   const contentOf = (d: UpstreamCompletion | null): string =>
     (d?.choices?.[0]?.message?.content ?? "").trim();
 
   try {
-    let upstream = await callModel(4000);
+    let upstream = await callModelWithRetry(4000);
     let data: UpstreamCompletion | null = null;
     if (upstream.ok) data = (await upstream.json()) as UpstreamCompletion;
 
@@ -228,7 +255,7 @@ export default async function handler(
         "empty model output — retrying with 8000 tokens. finish_reason:",
         data?.choices?.[0]?.finish_reason
       );
-      upstream = await callModel(8000);
+      upstream = await callModelWithRetry(8000);
       if (upstream.ok) data = (await upstream.json()) as UpstreamCompletion;
     }
 
@@ -270,6 +297,13 @@ export default async function handler(
     });
   } catch (err) {
     console.error("generate failed", err);
+    if (isNetworkError(err)) {
+      res.status(502).json({
+        error:
+          "Couldn't reach the model provider — network hiccup. Check your connection, then try again.",
+      });
+      return;
+    }
     res.status(500).json({ error: "Generation failed on the server." });
   }
 }

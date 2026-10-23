@@ -85,7 +85,7 @@ function paintShell(ctx: CanvasRenderingContext2D, assets: ShellAssets | null) {
     ctx.font = `300 96px ${FLYER_FONTS.headline}`;
     ctx.textBaseline = "alphabetic";
     ctx.fillText("O", l.x + 70, l.y + 110);
-    ctx.font = `500 64px ${FLYER_FONTS.script}`;
+    ctx.font = `400 64px ${FLYER_FONTS.script}`;
     ctx.fillText("studio", l.x + 180, l.y + 100);
     ctx.font = `600 24px ${FLYER_FONTS.body}`;
     ctx.fillText("I N N O V A T I O N S", l.x + 180, l.y + 145);

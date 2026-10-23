@@ -155,8 +155,9 @@ const Index = () => {
             <div className="flex items-start gap-2.5 rounded-lg border border-border bg-card p-3 text-[13px] text-muted-foreground">
               <Info className="mt-0.5 h-4 w-4 shrink-0 text-gold" />
               <span>
-                Brand fonts not installed — using fallback type. Drop woff2 files into{" "}
-                <code className="text-foreground">/public/fonts</code> (see README).
+                Brand fonts didn't load (offline or Google Fonts blocked) — using
+                fallback type. Preview and exports stay identical; reload when
+                you're back online.
               </span>
             </div>
           )}

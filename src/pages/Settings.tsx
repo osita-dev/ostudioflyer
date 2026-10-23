@@ -100,19 +100,19 @@ const Settings = () => {
             hint={ASSET_PATHS.mask}
           />
           <Row
-            label="Headline font"
+            label="Headline font (Poppins)"
             ok={fonts ? fonts.headline === "loaded" : null}
-            hint={ASSET_PATHS.fonts.headline.file}
+            hint="Google Fonts"
           />
           <Row
-            label="Body font"
+            label="Body font (Inter)"
             ok={fonts ? fonts.body === "loaded" : null}
-            hint={ASSET_PATHS.fonts.body.file}
+            hint="Google Fonts"
           />
           <Row
-            label="Script font (Quick Tip)"
+            label="Script font — Quick Tip (Great Vibes)"
             ok={fonts ? fonts.script === "loaded" : null}
-            hint={ASSET_PATHS.fonts.script.file}
+            hint="Google Fonts"
           />
         </div>
       </section>

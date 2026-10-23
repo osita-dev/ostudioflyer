@@ -23,10 +23,12 @@ export const SHELL = {
   footer: { y: 1660, email: "info@ostudioinnovations.com" },
 } as const;
 
+// Google Fonts families (loaded in index.html). The preview and the canvas
+// exporter both paint these exact stacks — preview === export by construction.
 export const FLYER_FONTS = {
-  headline: "'OStudioHeadline', 'Poppins', 'Segoe UI', system-ui, sans-serif",
-  body: "'OStudioBody', 'Inter', system-ui, sans-serif",
-  script: "'OStudioScript', 'Segoe Script', 'Brush Script MT', cursive",
+  headline: "'Poppins', 'Segoe UI', system-ui, sans-serif",
+  body: "'Inter', system-ui, sans-serif",
+  script: "'Great Vibes', 'Segoe Script', cursive",
 } as const;
 
 export const FLYER_WEIGHTS = {
@@ -46,14 +48,10 @@ export const FLYER_COLORS = {
   black: "#0C0B09",
 } as const;
 
-/** Asset contract — drop files at these exact paths to upgrade fidelity. */
+/** Asset contract — drop files at these exact paths to upgrade fidelity.
+ *  (Typography is NOT file-based — it comes from Google Fonts via index.html.) */
 export const ASSET_PATHS = {
   background: "/flyer/background-9x16.png",
   logo: "/flyer/logo.png",
   mask: "/flyer/brush-mask.png",
-  fonts: {
-    headline: { file: "/fonts/ostudio-headline.woff2", family: "OStudioHeadline" },
-    body: { file: "/fonts/ostudio-body.woff2", family: "OStudioBody" },
-    script: { file: "/fonts/ostudio-script.woff2", family: "OStudioScript" },
-  },
 } as const;

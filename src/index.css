@@ -2,27 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Self-hosted brand fonts (Invariant 7: no external font CDN) ─────────────
-   Drop the woff2 files into /public/fonts to activate. Without them the app
-   runs in visible fallback-type mode (see Settings → Assets & fonts). */
-@font-face {
-  font-family: "OStudioHeadline";
-  src: url("/fonts/ostudio-headline.woff2") format("woff2");
-  font-weight: 400 800;
-  font-display: swap;
-}
-@font-face {
-  font-family: "OStudioBody";
-  src: url("/fonts/ostudio-body.woff2") format("woff2");
-  font-weight: 300 700;
-  font-display: swap;
-}
-@font-face {
-  font-family: "OStudioScript";
-  src: url("/fonts/ostudio-script.woff2") format("woff2");
-  font-weight: 400;
-  font-display: swap;
-}
+/* Brand typography (Poppins · Inter · Great Vibes) loads via Google Fonts in
+   index.html — no self-hosted font files. */
 
 @layer base {
   /* O Studio dark chrome with gold accent — the flyer must be the brightest

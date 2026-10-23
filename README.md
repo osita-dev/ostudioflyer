@@ -24,20 +24,19 @@ Any OpenAI-compatible endpoint works via `OPENAI_BASE_URL` + `OPENAI_MODEL`
 
 Drop these files in to reach full fidelity. Missing assets never break the app:
 the shell falls back to a CSS reconstruction, photos fall back to text-only
-layouts, fonts fall back to system type (visible amber status in Settings).
+layouts (visible amber status in Settings). **Typography needs no files** —
+Poppins · Inter · Great Vibes load from Google Fonts automatically.
 
 | File | Purpose |
 |---|---|
 | `public/flyer/background-9x16.png` | The permanent O Studio shell (black bg, gold linework, logo, scroll panel, footer) at 1080×1920 or larger — export from your design source |
 | `public/flyer/logo.png` | Logo overlay (only used when the background asset is absent) |
 | `public/flyer/brush-mask.png` | Brush/torn edge mask for subject photos (matches your Image 2 treatment) |
-| `public/fonts/ostudio-headline.woff2` | Bold headline sans |
-| `public/fonts/ostudio-body.woff2` | Body sans |
-| `public/fonts/ostudio-script.woff2` | Gold script face for "Quick Tip" |
 | `public/images/*.jpg` | Curated subject photos (paths registered in `src/data/images.json`) |
 
-Exported PNGs render at 2× (2160×3840). If a brand font file exists but fails
-to load, export **hard-fails** rather than silently shipping wrong typography.
+Exported PNGs render at 2× (2160×3840). Preview and export paint the same
+layout model with the same font stacks, so the downloaded PNG always matches
+what you saw on screen.
 
 ## Editing content (no code changes needed)
 
