@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+  <!-- O Studio Daily app icon — maskable variant (mark inside the 80% safe zone) -->
+  <rect width="512" height="512" fill="#0C0B09"/>
+  <circle cx="256" cy="256" r="110" fill="none" stroke="#FFD400" stroke-width="40"/>
+  <circle cx="256" cy="256" r="36" fill="#FFD400"/>
+</svg>

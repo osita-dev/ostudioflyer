@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite"
 import react from "@vitejs/plugin-react"
+import { VitePWA } from "vite-plugin-pwa"
 import path from "path"
 import type { IncomingMessage, ServerResponse } from "node:http"
 
@@ -80,7 +81,85 @@ function apiDevBridge() {
 }
 
 export default defineConfig({
-  plugins: [react(), apiDevBridge()],
+  plugins: [
+    react(),
+    apiDevBridge(),
+    // PWA — service worker + web manifest. Dev stays untouched (no SW in
+    // `bun run dev`, so the dev bridge/HMR never fights a cached shell);
+    // production precaches the app shell and runtime-caches Google Fonts so
+    // the app opens instantly and works offline.
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: [
+        "favicon.svg",
+        "OstudioInnovation.svg",
+        "icon.svg",
+        "icon-maskable.svg",
+        "flyer/logo.svg",
+      ],
+      manifest: {
+        name: "O Studio Daily",
+        short_name: "O Studio Daily",
+        description:
+          "One-click branded 9:16 flyer studio for O Studio Innovations.",
+        theme_color: "#0D0D0D",
+        background_color: "#0C0B09",
+        display: "standalone",
+        orientation: "portrait",
+        start_url: "/",
+        scope: "/",
+        icons: [
+          { src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+          {
+            src: "icon-maskable.svg",
+            sizes: "any",
+            type: "image/svg+xml",
+            purpose: "maskable",
+          },
+        ],
+      },
+      workbox: {
+        // Precache the shell only (js/css/html) plus the pinned brand assets
+        // above — curated photos and stray files in public/ stay out so the
+        // install stays small.
+        globPatterns: ["**/*.{js,css,html}"],
+        navigateFallback: "index.html",
+        navigateFallbackDenylist: [/^\/api\//],
+        cleanupOutdatedCaches: true,
+        runtimeCaching: [
+          // Google Fonts: stylesheet is small and changes rarely → revalidate;
+          // the woff2 files are immutable → cache-first for a year.
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: "StaleWhileRevalidate",
+            options: { cacheName: "google-fonts-stylesheets" },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "google-fonts-webfonts",
+              expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+          // Curated subject photos (generated-image URLs may be external) —
+          // cache-first so re-opened flyers paint instantly, even offline.
+          {
+            urlPattern: ({ url }) =>
+              url.pathname.startsWith("/images/") ||
+              /\.(jpe?g|png|webp)$/i.test(url.pathname),
+            handler: "CacheFirst",
+            options: {
+              cacheName: "flyer-images",
+              expiration: { maxEntries: 80, maxAgeSeconds: 60 * 60 * 24 * 30 },
+              cacheableResponse: { statuses: [0, 200] },
+            },
+          },
+        ],
+      },
+    }),
+  ],
   server: {
     port: 5173,
     // Fail loudly if something else already owns 5173 (e.g. an old dev
