@@ -61,6 +61,10 @@ const modelOutputSchema = z.object({
   imageTags: z.array(z.string()).max(10).default([]),
 });
 
+interface UpstreamCompletion {
+  choices?: { finish_reason?: string; message?: { content?: string } }[];
+}
+
 const PROMPT_VERSION = "v1";
 
 type Payload = z.infer<typeof payloadSchema>;
@@ -177,27 +181,56 @@ export default async function handler(
     ? (process.env.GROQ_MODEL ?? "openai/gpt-oss-20b")
     : (process.env.OPENAI_MODEL ?? "gpt-4o-mini");
 
-  try {
-    const upstream = await fetch(`${baseUrl}/chat/completions`, {
+  const messages = [
+    {
+      role: "system",
+      content:
+        "You write concise, useful, human-sounding flyer content for a creative studio. You never invent facts. You always return valid JSON matching the requested shape.",
+    },
+    { role: "user", content: buildSystemPrompt(payload) },
+  ];
+
+  // gpt-oss models spend "reasoning" tokens BEFORE any content, and those count
+  // against max_tokens — the budget must cover thinking + the answer.
+  // (Live-verified against Groq: 500 tokens → finish_reason "length", no content.)
+  const gptOss = model.includes("gpt-oss");
+
+  const callModel = async (maxTokens: number): Promise<Response> => {
+    const body: Record<string, unknown> = {
+      model,
+      temperature: 0.85,
+      max_tokens: maxTokens,
+      messages,
+    };
+    if (gptOss) body.reasoning_effort = "low";
+    return fetch(`${baseUrl}/chat/completions`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${key}`,
       },
-      body: JSON.stringify({
-        model,
-        temperature: 0.85,
-        max_tokens: 500,
-        messages: [
-          {
-            role: "system",
-            content:
-              "You write concise, useful, human-sounding flyer content for a creative studio. You never invent facts. You always return valid JSON matching the requested shape.",
-          },
-          { role: "user", content: buildSystemPrompt(payload) },
-        ],
-      }),
+      body: JSON.stringify(body),
     });
+  };
+
+  const contentOf = (d: UpstreamCompletion | null): string =>
+    (d?.choices?.[0]?.message?.content ?? "").trim();
+
+  try {
+    let upstream = await callModel(4000);
+    let data: UpstreamCompletion | null = null;
+    if (upstream.ok) data = (await upstream.json()) as UpstreamCompletion;
+
+    // Safety net: if the model burned its whole budget on reasoning and returned
+    // nothing, retry once with a doubled budget before giving up.
+    if (upstream.ok && !contentOf(data)) {
+      console.error(
+        "empty model output — retrying with 8000 tokens. finish_reason:",
+        data?.choices?.[0]?.finish_reason
+      );
+      upstream = await callModel(8000);
+      if (upstream.ok) data = (await upstream.json()) as UpstreamCompletion;
+    }
 
     if (!upstream.ok) {
       const detail = await upstream.text().catch(() => "");
@@ -206,16 +239,25 @@ export default async function handler(
       return;
     }
 
-    const data = (await upstream.json()) as {
-      choices?: { message?: { content?: string } }[];
-    };
-    const text = data.choices?.[0]?.message?.content ?? "";
+    const text = contentOf(data);
     if (!text) {
-      res.status(502).json({ error: "The model returned an empty response." });
+      res.status(502).json({
+        error: "The model returned an empty response — try Generate again.",
+      });
       return;
     }
 
-    const output = modelOutputSchema.safeParse(extractJson(text));
+    let raw: unknown;
+    try {
+      raw = extractJson(text);
+    } catch {
+      res.status(502).json({
+        error: "The model replied in prose instead of JSON — try Generate again.",
+      });
+      return;
+    }
+
+    const output = modelOutputSchema.safeParse(raw);
     if (!output.success) {
       res.status(502).json({ error: "The model returned an unexpected shape." });
       return;
