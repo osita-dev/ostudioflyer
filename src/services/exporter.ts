@@ -202,13 +202,13 @@ function stamp(): string {
   return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`;
 }
 
-/** Full export flow: guard fonts → paint at 2× → PNG download. */
-export async function exportFlyerPng(
+/** Renders the layout to a 2× PNG blob (fonts guarded). Shared by download
+ *  AND social share — one renderer, identical pixels in both flows. */
+export async function renderFlyerPng(
   layout: LayoutModel,
   image: HTMLImageElement | null,
-  assets: ShellAssets | null,
-  filenameHint: string
-): Promise<void> {
+  assets: ShellAssets | null
+): Promise<Blob> {
   await guardFontsForExport(); // Invariant 7 — never export wrong typography silently
 
   const scale = 2;
@@ -229,6 +229,17 @@ export async function exportFlyerPng(
 
   const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/png"));
   if (!blob) throw new Error("PNG encoding failed — try again.");
+  return blob;
+}
+
+/** Download flow: render → save (caller flips the record to `downloaded`). */
+export async function exportFlyerPng(
+  layout: LayoutModel,
+  image: HTMLImageElement | null,
+  assets: ShellAssets | null,
+  filenameHint: string
+): Promise<void> {
+  const blob = await renderFlyerPng(layout, image, assets);
 
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");

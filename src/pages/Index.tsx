@@ -11,11 +11,21 @@ import { toast } from "sonner";
 import {
   AlertTriangle,
   Download,
+  Facebook,
   ImageOff,
+  Instagram,
   Info,
+  Linkedin,
+  MessageCircle,
+  Music2,
   Pencil,
+  Send,
+  Share2,
   Sparkles,
+  Twitter,
   Upload,
+  Youtube,
+  type LucideIcon,
 } from "lucide-react";
 import {
   AlertDialog,
@@ -36,8 +46,26 @@ import { useStudio } from "@/hooks/use-studio";
 import { composeCaption } from "@/domain/caption";
 import { exhaustedCategories } from "@/domain/selectors";
 import { getDirection } from "@/domain/library";
-import { exportFlyerPng } from "@/services/exporter";
+import { exportFlyerPng, renderFlyerPng, slugName } from "@/services/exporter";
+import {
+  SOCIALS,
+  canShareFiles,
+  copyText,
+  shareFlyer,
+  type SocialPlatform,
+} from "@/services/share";
 import { ensureFonts, type FontStatus } from "@/services/fonts";
+
+const PLATFORM_ICONS: Record<string, LucideIcon> = {
+  facebook: Facebook,
+  instagram: Instagram,
+  tiktok: Music2,
+  x: Twitter,
+  linkedin: Linkedin,
+  youtube: Youtube,
+  whatsapp: MessageCircle,
+  telegram: Send,
+};
 
 const Index = () => {
   const navigate = useNavigate();
@@ -98,6 +126,51 @@ const Index = () => {
       .then(() => toast.success("Caption copied."))
       .catch(() => toast.error("Couldn't access the clipboard."));
   }, [current]);
+
+  // ── Share to socials ─────────────────────────────────────────────────────
+  const [fileShare, setFileShare] = useState(false);
+  useEffect(() => {
+    setFileShare(canShareFiles());
+  }, []);
+
+  /** Mobile: native share sheet with the PNG attached — pick app, press post. */
+  const handleShare = useCallback(async () => {
+    if (!current || !layout) return;
+    setExporting(true);
+    try {
+      const blob = await renderFlyerPng(layout, subjectImage, shell);
+      const file = new File([blob], `ostudio-${slugName(current.content.headline)}.png`, {
+        type: "image/png",
+      });
+      await shareFlyer(file, composeCaption(current));
+      transition(current.id, "downloaded");
+    } catch (err) {
+      const e = err as Error;
+      if (e.name === "AbortError") return; // user dismissed the sheet — not an error
+      toast.error(e.message || "Sharing failed.");
+    } finally {
+      setExporting(false);
+    }
+  }, [current, layout, shell, subjectImage, transition]);
+
+  /** Desktop: open the platform (caption prefilled where possible, else copied). */
+  const openPlatform = useCallback(
+    (p: SocialPlatform) => {
+      if (!current) return;
+      const caption = composeCaption(current);
+      void copyText(caption).then((copied) => {
+        window.open(p.url(caption), "_blank", "noopener");
+        toast(
+          p.prefills
+            ? `${p.label} opened — the caption is pre-filled in the post.`
+            : copied
+              ? `${p.label} opened — caption copied; paste it and attach the flyer image.`
+              : `${p.label} opened — use "Copy caption", then paste it with the flyer image.`
+        );
+      });
+    },
+    [current]
+  );
 
   // Keyboard shortcuts (step 06): G generate · D download · C caption
   useEffect(() => {
@@ -252,6 +325,50 @@ const Index = () => {
                     Mark as published
                   </Button>
                 )}
+              </div>
+
+              {/* Share to socials */}
+              <div className="space-y-2.5 border-t border-border pt-4">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="text-[13px] font-medium">Share to socials</p>
+                  {fileShare && (
+                    <Button
+                      size="sm"
+                      className="bg-gold text-black hover:bg-gold/90"
+                      disabled={exporting}
+                      onClick={() => void handleShare()}
+                    >
+                      <Share2 className="h-3.5 w-3.5" />
+                      {exporting ? "Preparing…" : "Share flyer"}
+                    </Button>
+                  )}
+                </div>
+                <p className="text-[11px] text-muted-foreground">
+                  {fileShare
+                    ? "Opens your share sheet with the PNG attached — pick a platform, press post."
+                    : "Opens each platform with the caption copied — paste it and attach the flyer image."}
+                </p>
+                <div className="grid grid-cols-4 gap-2">
+                  {SOCIALS.map((p) => {
+                    const Icon = PLATFORM_ICONS[p.id];
+                    return (
+                      <Button
+                        key={p.id}
+                        variant="outline"
+                        onClick={() => openPlatform(p)}
+                        title={
+                          p.prefills
+                            ? `${p.label} — caption pre-filled`
+                            : `${p.label} — caption copied`
+                        }
+                        className="h-auto flex-col gap-1.5 py-2.5"
+                      >
+                        <Icon className="h-4 w-4" />
+                        <span className="text-[10px] leading-none">{p.label}</span>
+                      </Button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
