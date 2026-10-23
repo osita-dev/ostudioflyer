@@ -1,0 +1,44 @@
+{
+  "images": [
+    {
+      "id": "camera-golden-hour",
+      "file": "/images/camera-golden-hour.jpg",
+      "tags": ["photography", "camera", "light", "golden hour", "outdoor", "landscape"],
+      "subjectIds": ["photography/natural-lighting"],
+      "credit": "O Studio archive",
+      "license": "owned"
+    },
+    {
+      "id": "camera-composition",
+      "file": "/images/camera-composition.jpg",
+      "tags": ["photography", "camera", "composition", "viewfinder", "framing"],
+      "subjectIds": ["photography/composition-framing"],
+      "credit": "O Studio archive",
+      "license": "owned"
+    },
+    {
+      "id": "lens-closeup",
+      "file": "/images/lens-closeup.jpg",
+      "tags": ["photography", "lens", "focus", "equipment", "camera"],
+      "subjectIds": ["photography/missed-focus"],
+      "credit": "O Studio archive",
+      "license": "owned"
+    },
+    {
+      "id": "video-camera-rig",
+      "file": "/images/video-camera-rig.jpg",
+      "tags": ["videography", "video", "camera", "rig", "filming"],
+      "subjectIds": ["videography/stable-footage"],
+      "credit": "O Studio archive",
+      "license": "owned"
+    },
+    {
+      "id": "editing-timeline",
+      "file": "/images/editing-timeline.jpg",
+      "tags": ["editing", "timeline", "software", "post-production", "screen"],
+      "subjectIds": ["film-production/editing-rhythm"],
+      "credit": "O Studio archive",
+      "license": "owned"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "id": "technology",
+  "label": "TECH NOTE",
+  "active": true,
+  "directions": [
+    {
+      "id": "practical-tips",
+      "label": "Practical Tips",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "One useful technology habit for creative work — files, backups, devices, tools. Must be tool-agnostic enough for anyone to apply.",
+      "subjects": [
+        {
+          "id": "backup-routine",
+          "label": "Backup routines",
+          "guidance": "The habit of more than one copy: local plus offsite, why memory cards are not storage, and scheduled automatic backups.",
+          "imageTags": ["technology", "storage", "backup"],
+          "active": true
+        },
+        {
+          "id": "file-organisation",
+          "label": "File organisation",
+          "guidance": "Naming conventions, project templates, and why ten minutes of structure saves an afternoon of searching.",
+          "imageTags": ["technology", "files", "organisation"],
+          "active": true
+        },
+        {
+          "id": "device-storage",
+          "label": "Device storage",
+          "guidance": "Clearing space before a shoot, offloading safely, and knowing the difference between full and nearly full.",
+          "imageTags": ["technology", "storage", "phone"],
+          "active": true
+        },
+        {
+          "id": "software-updates",
+          "label": "Updating wisely",
+          "guidance": "Why creative software updates should wait for a project break, and how version pinning protects deadlines.",
+          "imageTags": ["technology", "software"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "label": "Common Mistakes",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Technology mistakes that cost creative work: data loss, security oversights, tool misuse. Practical, never alarmist.",
+      "subjects": [
+        {
+          "id": "single-copy-files",
+          "label": "Single-copy files",
+          "guidance": "The one-folder risk: why a single copy of finished work is a countdown, not a storage choice.",
+          "imageTags": ["technology", "storage", "backup"],
+          "active": true
+        },
+        {
+          "id": "weak-passwords",
+          "label": "Weak account security",
+          "guidance": "Reused passwords on client-facing accounts, and the simple upgrade of a password manager plus two-step verification.",
+          "imageTags": ["technology", "security"],
+          "active": true
+        },
+        {
+          "id": "tools-over-workflow",
+          "label": "Collecting tools",
+          "guidance": "Buying the app instead of building the habit; why one tool used deeply beats five used shallowly.",
+          "imageTags": ["technology", "software", "workflow"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "mini-lessons",
+      "label": "Mini Lessons",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Explain one technology concept for creatives in under 60 words, plainly, with no jargon left unexplained.",
+      "subjects": [
+        {
+          "id": "file-formats",
+          "label": "File formats",
+          "guidance": "Why masters stay uncompressed while deliveries get compressed; the archive-versus-share trade in plain terms.",
+          "imageTags": ["technology", "files", "formats"],
+          "active": true
+        },
+        {
+          "id": "cloud-storage",
+          "label": "Cloud storage",
+          "guidance": "Sync is not backup, and why understanding the difference protects finished work.",
+          "imageTags": ["technology", "storage", "cloud"],
+          "active": true
+        },
+        {
+          "id": "ai-tools",
+          "label": "Working with AI tools",
+          "guidance": "Using AI as a first-draft assistant while keeping human judgement on facts, taste and final calls.",
+          "imageTags": ["technology", "ai", "software"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "business-connection",
+      "label": "For Your Business",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Show how sensible technology choices protect business continuity and client trust. Never name-drop products as solutions.",
+      "subjects": [
+        {
+          "id": "client-file-delivery",
+          "label": "Delivering to clients",
+          "guidance": "Why organised delivery — clear folders, sensible sizes, permanent links — is part of the product clients judge.",
+          "imageTags": ["technology", "business", "delivery"],
+          "active": true
+        },
+        {
+          "id": "workflow-automation",
+          "label": "Automation that helps",
+          "guidance": "Automating the repetitive middle of projects: templates, presets, and batch exports that remove friction.",
+          "imageTags": ["technology", "workflow", "software"],
+          "active": true
+        },
+        {
+          "id": "privacy-basics",
+          "label": "Client privacy",
+          "guidance": "Handling client assets responsibly: shared folders with expiry, minimal access, and deleting drafts on request.",
+          "imageTags": ["technology", "security", "business"],
+          "active": true
+        }
+      ]
+    }
+  ]
+}

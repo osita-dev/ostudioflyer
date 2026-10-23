@@ -1,0 +1,164 @@
+{
+  "id": "videography",
+  "label": "VIDEOGRAPHY TIP",
+  "active": true,
+  "directions": [
+    {
+      "id": "practical-tips",
+      "label": "Practical Tips",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "One concrete filming technique, usable today, phone or camera. Say where to try it and what to watch for while filming.",
+      "subjects": [
+        {
+          "id": "stable-footage",
+          "label": "Stable footage",
+          "guidance": "Two-handed phone technique, bracing against walls, micro-movements that read as shake, and when a tripod genuinely helps.",
+          "imageTags": ["videography", "video", "camera", "rig"],
+          "active": true
+        },
+        {
+          "id": "shooting-for-the-edit",
+          "label": "Shooting for the edit",
+          "guidance": "Capturing variety on purpose: wide, medium, close; clean cutaway material; head and tail handles on every clip.",
+          "imageTags": ["videography", "editing", "camera"],
+          "active": true
+        },
+        {
+          "id": "audio-first",
+          "label": "Audio comes first",
+          "guidance": "Why viewers forgive soft video but not bad sound; room tone, mic placement, and recording a safety track.",
+          "imageTags": ["videography", "audio", "microphone"],
+          "active": true
+        },
+        {
+          "id": "light-for-video",
+          "label": "Lighting for video",
+          "guidance": "Window-as-key-light setups, avoiding mixed colour temperatures, and keeping exposure consistent across a shot.",
+          "imageTags": ["videography", "light", "video"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "label": "Common Mistakes",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "A real mistake first-time shooters make, why it costs them, and the fix. Respectful tone — the mistake should feel obvious only in hindsight.",
+      "subjects": [
+        {
+          "id": "zooming-too-much",
+          "label": "Zooming mid-shot",
+          "guidance": "Digital zoom degrading quality, nervous zoom movement, and the cleaner habit of moving your feet or cutting between fixed frames.",
+          "imageTags": ["videography", "video", "camera"],
+          "active": true
+        },
+        {
+          "id": "ignoring-background",
+          "label": "Ignoring the background",
+          "guidance": "Distracting movement, clutter and people walking through frame; why video backgrounds are alive and need more control than photos.",
+          "imageTags": ["videography", "background"],
+          "active": true
+        },
+        {
+          "id": "vertical-filming",
+          "label": "Filming the wrong shape",
+          "guidance": "Shooting landscape for a vertical-first platform or vice versa; deciding the destination before pressing record.",
+          "imageTags": ["videography", "phone", "video"],
+          "active": true
+        },
+        {
+          "id": "unusable-clips",
+          "label": "Clips that are too short",
+          "guidance": "Stopping record too early — the last second is where the cut needs room; holding three extra seconds is free insurance.",
+          "imageTags": ["videography", "editing"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "mini-lessons",
+      "label": "Mini Lessons",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Explain one video concept clearly in under 60 words: name it, show how it works, give one way to practise it.",
+      "subjects": [
+        {
+          "id": "frame-rates",
+          "label": "Frame rates",
+          "guidance": "Why 24 feels cinematic, why 60 looks smooth, and how slow motion is created in-camera rather than in the edit.",
+          "imageTags": ["videography", "video", "camera"],
+          "active": true
+        },
+        {
+          "id": "shot-coverage",
+          "label": "Shot coverage",
+          "guidance": "The wide-medium-close system: what each shot buys the editor and why a scene without coverage cannot be cut.",
+          "imageTags": ["videography", "editing", "camera"],
+          "active": true
+        },
+        {
+          "id": "movement-with-purpose",
+          "label": "Movement with purpose",
+          "guidance": "Every camera move should reveal or follow something; decorative movement draws attention to itself.",
+          "imageTags": ["videography", "video", "motion"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "business-connection",
+      "label": "For Your Business",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Connect video craft to a business outcome: clarity for customers, trust through faces and voices, reuse of footage across platforms. Never pitch; teach the principle.",
+      "subjects": [
+        {
+          "id": "explainer-videos",
+          "label": "Explainer videos",
+          "guidance": "How a 60-second explanation of what you do beats a paragraph of copy; structuring problem → solution → next step.",
+          "imageTags": ["videography", "business", "video"],
+          "active": true
+        },
+        {
+          "id": "social-video-reuse",
+          "label": "Footage reuse",
+          "guidance": "Planning one shoot to feed months of content: capturing extra frames, alternate angles, and vertical versions on the day.",
+          "imageTags": ["videography", "social", "editing"],
+          "active": true
+        },
+        {
+          "id": "testimonial-filming",
+          "label": "Testimonial filming",
+          "guidance": "Why clients relax off-camera, how question order builds a natural answer, and why authenticity beats scripting.",
+          "imageTags": ["videography", "interview", "business"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "conversation-starters",
+      "label": "Let's Talk Video",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "A light, answerable question about video habits. Make it feel like the start of a conversation at a studio, not a poll.",
+      "subjects": [
+        {
+          "id": "watched-twice",
+          "label": "Videos worth rewatching",
+          "guidance": "Questions about which videos people replay and what makes the second viewing worthwhile.",
+          "imageTags": ["videography", "video"],
+          "active": true
+        },
+        {
+          "id": "phone-storytelling",
+          "label": "Storytelling on phone",
+          "guidance": "How people already tell stories with their phones daily, and what one small upgrade changes most.",
+          "imageTags": ["videography", "phone", "story"],
+          "active": true
+        }
+      ]
+    }
+  ]
+}

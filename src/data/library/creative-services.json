@@ -1,0 +1,135 @@
+{
+  "id": "creative-services",
+  "label": "CREATIVE NOTE",
+  "active": true,
+  "directions": [
+    {
+      "id": "practical-tips",
+      "label": "Practical Tips",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "A usable creative-work habit: briefing, references, feedback, iteration. Anyone doing creative work can apply it today.",
+      "subjects": [
+        {
+          "id": "mood-boards",
+          "label": "Mood boards",
+          "guidance": "Using references to agree on taste before work starts; three well-chosen images beat a paragraph of description.",
+          "imageTags": ["creative", "design", "planning"],
+          "active": true
+        },
+        {
+          "id": "brief-writing",
+          "label": "Writing a brief",
+          "guidance": "What a useful brief contains: goal, audience, must-haves, and the one thing that must not happen.",
+          "imageTags": ["creative", "planning", "business"],
+          "active": true
+        },
+        {
+          "id": "feedback-handling",
+          "label": "Giving feedback",
+          "guidance": "Describing reactions instead of prescribing edits; how 'this feels calm' improves work faster than 'move it left'.",
+          "imageTags": ["creative", "feedback", "process"],
+          "active": true
+        },
+        {
+          "id": "creative-routines",
+          "label": "Creative routines",
+          "guidance": "Protecting making time: fixed starts, smaller scopes, and finishing something small to keep momentum.",
+          "imageTags": ["creative", "process", "routine"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "creative-insights",
+      "label": "Creative Insights",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Thoughtful observations about creative work and taste — perspective pieces, not tips. One clean idea, no filler.",
+      "subjects": [
+        {
+          "id": "constraints-help",
+          "label": "Constraints help",
+          "guidance": "Why fewer options produce stronger work: the palette, the frame, and the deadline as creative partners.",
+          "imageTags": ["creative", "design"],
+          "active": true
+        },
+        {
+          "id": "taste-vs-skill",
+          "label": "Taste and skill",
+          "guidance": "The gap between what you can recognise and what you can make — and how that gap shrinks with reps.",
+          "imageTags": ["creative", "growth"],
+          "active": true
+        },
+        {
+          "id": "boring-first-drafts",
+          "label": "Boring first drafts",
+          "guidance": "Why the first version should be safe and fast: editing a working draft is easier than rescuing a clever empty one.",
+          "imageTags": ["creative", "process", "writing"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "misconceptions",
+      "label": "Myths, Gently Busted",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Calmly correct a widespread belief about creative work. No mockery, no drama — just the more accurate version.",
+      "subjects": [
+        {
+          "id": "inspiration-myth",
+          "label": "Waiting for inspiration",
+          "guidance": "The myth that good work arrives on its own schedule; how routines produce the conditions inspiration needs.",
+          "imageTags": ["creative", "process"],
+          "active": true
+        },
+        {
+          "id": "equipment-myth",
+          "label": "Gear makes the creative",
+          "guidance": "Why better tools narrow the gap only after fundamentals are strong; gear as a multiplier, not a source.",
+          "imageTags": ["creative", "equipment"],
+          "active": true
+        },
+        {
+          "id": "overnight-success",
+          "label": "Overnight success",
+          "guidance": "The visible launch versus the invisible years; why comparing beginnings to middles misleads.",
+          "imageTags": ["creative", "growth"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "studio-spotlight",
+      "label": "From The Studio",
+      "slotProfile": "lesson",
+      "budget": { "headline": 10, "body": 20, "tip": 12, "closing": 5 },
+      "promotional": true,
+      "guidance": "Occasionally connect a genuine creative lesson to O Studio's services — photography, video, film, content. The lesson must stand alone as useful; the studio connection is one honest sentence at most. Never fabricate offers, discounts or availability.",
+      "subjects": [
+        {
+          "id": "working-with-a-studio",
+          "label": "Working with a studio",
+          "guidance": "What a good studio engagement feels like from the client side: clear briefs, shared references, predictable delivery.",
+          "imageTags": ["creative", "business", "studio"],
+          "active": true
+        },
+        {
+          "id": "why-professionals-matter",
+          "label": "Why pros exist",
+          "guidance": "What professional production actually buys: reliability under pressure, contingency planning, and consistent quality across a long day.",
+          "imageTags": ["creative", "studio", "production"],
+          "active": true
+        },
+        {
+          "id": "creative-partnership",
+          "label": "Creative partnership",
+          "guidance": "The difference between hiring hands and hiring judgment — and when each is the right call.",
+          "imageTags": ["creative", "business", "studio"],
+          "active": true
+        }
+      ]
+    }
+  ]
+}

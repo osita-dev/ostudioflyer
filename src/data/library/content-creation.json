@@ -1,0 +1,164 @@
+{
+  "id": "content-creation",
+  "label": "CONTENT NOTE",
+  "active": true,
+  "directions": [
+    {
+      "id": "practical-tips",
+      "label": "Practical Tips",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "One usable content technique for people posting on phone or desktop. It must work without a team or budget.",
+      "subjects": [
+        {
+          "id": "hook-writing",
+          "label": "Writing the hook",
+          "guidance": "First lines that earn the next second: specificity over slogans, questions vs claims, and cutting the warm-up sentence.",
+          "imageTags": ["content", "writing", "phone"],
+          "active": true
+        },
+        {
+          "id": "content-calendar",
+          "label": "Planning ahead",
+          "guidance": "Batching ideas on one day, theme weeks, and why a loose plan beats daily inspiration.",
+          "imageTags": ["content", "planning", "calendar"],
+          "active": true
+        },
+        {
+          "id": "repurposing",
+          "label": "Repurposing content",
+          "guidance": "Turning one strong piece into several formats: carousel from a video, quote from an article, story from a photo set.",
+          "imageTags": ["content", "social", "editing"],
+          "active": true
+        },
+        {
+          "id": "captions-that-add",
+          "label": "Captions that add",
+          "guidance": "Writing captions that extend the image instead of describing it; ending with something worth answering.",
+          "imageTags": ["content", "writing", "social"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "label": "Common Mistakes",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Mistakes that quietly kill content performance. Explain the mechanism honestly; no platform-magic claims.",
+      "subjects": [
+        {
+          "id": "inconsistent-posting",
+          "label": "Inconsistent posting",
+          "guidance": "Why bursts followed by silence train audiences to ignore you, and how a sustainable rhythm beats intensity.",
+          "imageTags": ["content", "planning"],
+          "active": true
+        },
+        {
+          "id": "selling-too-early",
+          "label": "Selling too early",
+          "guidance": "Leading with the offer before trust exists; the ratio of giving to asking that keeps audiences listening.",
+          "imageTags": ["content", "business", "social"],
+          "active": true
+        },
+        {
+          "id": "copying-trends-blindly",
+          "label": "Copying trends blindly",
+          "guidance": "Trends that do not fit the brand cost credibility; checking fit before speed.",
+          "imageTags": ["content", "social", "brand"],
+          "active": true
+        },
+        {
+          "id": "no-clear-audience",
+          "label": "Posting for everyone",
+          "guidance": "Content aimed at everyone lands with nobody; choosing one reader per post and writing to them.",
+          "imageTags": ["content", "writing", "audience"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "mini-lessons",
+      "label": "Mini Lessons",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Teach one content concept in under 60 words with a concrete example. No statistics, no platform secrets.",
+      "subjects": [
+        {
+          "id": "value-posts",
+          "label": "Value posts",
+          "guidance": "Teach, entertain, or inspire — a post with no job is a post nobody finishes.",
+          "imageTags": ["content", "writing"],
+          "active": true
+        },
+        {
+          "id": "story-arc",
+          "label": "Story arcs in short posts",
+          "guidance": "Tension, turn, takeaway: the three-beat structure that works in eight seconds or eight lines.",
+          "imageTags": ["content", "story", "writing"],
+          "active": true
+        },
+        {
+          "id": "visual-hierarchy",
+          "label": "Visual hierarchy",
+          "guidance": "One dominant element per post; the eye enters at the strongest contrast, so place it where you want it.",
+          "imageTags": ["content", "design", "visual"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "business-connection",
+      "label": "For Your Business",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Connect content thinking to business outcomes — trust, recall, inbound conversations — without pitching the studio.",
+      "subjects": [
+        {
+          "id": "trust-compounding",
+          "label": "Trust compounds",
+          "guidance": "How useful posts accumulate into reputation; why the tenth helpful post works harder than the first.",
+          "imageTags": ["content", "business", "trust"],
+          "active": true
+        },
+        {
+          "id": "showing-process",
+          "label": "Showing your process",
+          "guidance": "Why behind-the-scenes content converts: process transparency answers the question clients actually ask — can they do the work?",
+          "imageTags": ["content", "business", "process"],
+          "active": true
+        },
+        {
+          "id": "platform-fit",
+          "label": "Choosing one platform",
+          "guidance": "Depth beats spread: mastering one channel's format and rhythm before opening another.",
+          "imageTags": ["content", "social", "strategy"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "conversation-starters",
+      "label": "Let's Talk Content",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "A friendly question about posting habits or creative blocks. Answerable in one line, inviting to real creators.",
+      "subjects": [
+        {
+          "id": "hardest-part",
+          "label": "The hardest part",
+          "guidance": "Questions about where content work actually stalls — ideas, capture, editing, or publishing.",
+          "imageTags": ["content", "process"],
+          "active": true
+        },
+        {
+          "id": "best-performer",
+          "label": "The surprise hit",
+          "guidance": "Asking which post unexpectedly performed and what that taught; people love revisiting surprises.",
+          "imageTags": ["content", "social"],
+          "active": true
+        }
+      ]
+    }
+  ]
+}

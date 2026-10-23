@@ -1,0 +1,157 @@
+{
+  "id": "film-production",
+  "label": "FILM NOTE",
+  "active": true,
+  "directions": [
+    {
+      "id": "practical-tips",
+      "label": "Practical Tips",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "A usable production habit that improves the next shoot — planning, on-set discipline, or preparation. Concrete and action-first.",
+      "subjects": [
+        {
+          "id": "shot-lists",
+          "label": "Shot lists",
+          "guidance": "Why a shot list is a schedule in disguise: coverage planning, time estimation, and preventing the forgotten closing shot.",
+          "imageTags": ["film", "planning", "production"],
+          "active": true
+        },
+        {
+          "id": "location-scouting",
+          "label": "Location scouting",
+          "guidance": "What to check on a scout visit: sun direction, sound intrusions, power access, and where the crew will actually stand.",
+          "imageTags": ["film", "location", "production"],
+          "active": true
+        },
+        {
+          "id": "sound-on-set",
+          "label": "Sound on set",
+          "guidance": "Recording clean production sound: mic placement, room silence rituals, and why sound is cheaper to capture than to replace.",
+          "imageTags": ["film", "audio", "production"],
+          "active": true
+        },
+        {
+          "id": "call-sheet-discipline",
+          "label": "Call sheets and rhythm",
+          "guidance": "How a clear call sheet protects the day: realistic timings, meal breaks, and knowing the one scene that must not fail.",
+          "imageTags": ["film", "planning", "production"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "behind-the-scenes",
+      "label": "Behind the Scenes",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Reveal how film work actually happens on set — the craft invisible in the final cut. Educational, never gossip.",
+      "subjects": [
+        {
+          "id": "takes-and-continuity",
+          "label": "Takes and continuity",
+          "guidance": "Why scenes are shot out of order, what continuity scripts track, and how actors rebuild emotion take after take.",
+          "imageTags": ["film", "production", "acting"],
+          "active": true
+        },
+        {
+          "id": "set-roles",
+          "label": "Who does what on set",
+          "guidance": "The chain from director to assistant director to department heads, and why clear roles make calm sets.",
+          "imageTags": ["film", "production", "crew"],
+          "active": true
+        },
+        {
+          "id": "b-roll-purpose",
+          "label": "The purpose of B-roll",
+          "guidance": "How cutaway material solves edits before they exist: covering jumps, bridging audio, and building rhythm.",
+          "imageTags": ["film", "editing", "camera"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "label": "Common Mistakes",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Production mistakes teams actually make, why they hurt the final film, and the process fix that prevents them.",
+      "subjects": [
+        {
+          "id": "skipping-preproduction",
+          "label": "Skipping pre-production",
+          "guidance": "Shooting before the plan exists: how hours saved in planning are repaid with interest in the edit.",
+          "imageTags": ["film", "planning"],
+          "active": true
+        },
+        {
+          "id": "no-coverage-plan",
+          "label": "No coverage plan",
+          "guidance": "Filming one angle per moment and discovering in the edit that there is nowhere to cut.",
+          "imageTags": ["film", "editing", "camera"],
+          "active": true
+        },
+        {
+          "id": "ignoring-post-early",
+          "label": "Ignoring post-production early",
+          "guidance": "Deciding in the edit what should have been decided in the script: file organisation, backups and delivery formats.",
+          "imageTags": ["film", "editing", "post-production"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "mini-lessons",
+      "label": "Mini Lessons",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Teach one storytelling or production concept in under 60 words, with a concrete example the reader can picture.",
+      "subjects": [
+        {
+          "id": "editing-rhythm",
+          "label": "Editing rhythm",
+          "guidance": "How cut timing sets emotion: holding shots builds tension, quick cuts build energy, and the cut on action hides itself.",
+          "imageTags": ["film", "editing", "timeline"],
+          "active": true
+        },
+        {
+          "id": "scene-structure",
+          "label": "Scene structure",
+          "guidance": "Every scene needs a want and an obstacle; if neither changes, the scene is a bridge, not a beat.",
+          "imageTags": ["film", "story", "script"],
+          "active": true
+        },
+        {
+          "id": "colour-mood",
+          "label": "Colour and mood",
+          "guidance": "How colour palettes carry feeling: warm comfort, cool distance, and why consistent grading reads as production value.",
+          "imageTags": ["film", "colour", "grading"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "business-connection",
+      "label": "For Your Business",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Show how film-quality thinking helps any business video: structure, clarity, delivery specs. Teach the principle; do not sell.",
+      "subjects": [
+        {
+          "id": "brand-films",
+          "label": "Brand films",
+          "guidance": "What separates a brand film from an advert: story first, product second, and a feeling that outlasts the pitch.",
+          "imageTags": ["film", "brand", "business"],
+          "active": true
+        },
+        {
+          "id": "delivery-specs",
+          "label": "Delivery specs",
+          "guidance": "Why the platform decides the format: aspect ratios, safe areas, and delivering masters plus cutdowns.",
+          "imageTags": ["film", "delivery", "business"],
+          "active": true
+        }
+      ]
+    }
+  ]
+}

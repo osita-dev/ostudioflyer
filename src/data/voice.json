@@ -1,0 +1,53 @@
+{
+  "audience": "Prospective clients of O Studio Innovations — business owners, brands and event organisers who may hire the studio for photography, videography, film or content work. Creative peers follow along too, but the voice always speaks as the studio to a potential client.",
+  "register": "Confident, generous, practical. Speaks like an experienced professional sharing craft, never like a brand selling services. Short sentences, concrete nouns, active voice. Teach first; sell never. One idea per flyer.",
+  "principles": [
+    "Teach something the reader can use today",
+    "One idea per flyer — never two",
+    "Headlines end with a full stop; the layout adds the gold period",
+    "Write for someone scrolling fast on a phone",
+    "Prefer specifics (a window, a shutter button, a timeline) over abstractions",
+    "Sound like a person, not a brochure"
+  ],
+  "bannedPhrases": [
+    "game-changer",
+    "unlock",
+    "elevate your",
+    "in today's fast-paced world",
+    "take it to the next level",
+    "next-level",
+    "revolutionize",
+    "seamless",
+    "curated experience",
+    "at the end of the day",
+    "immersive",
+    "unleash",
+    "dive into",
+    "look no further",
+    "stands out from the crowd"
+  ],
+  "bannedPatterns": [
+    "\\b\\d+%",
+    "studies show",
+    "research shows",
+    "did you know",
+    "according to (?!o ?studio)",
+    "\\b(17|18|19|20)\\d{2}\\b",
+    "\\bmillion\\b",
+    "\\bbillion\\b",
+    "the first (to|ever)",
+    "invented"
+  ],
+  "exemplars": [
+    {
+      "headline": "Good lighting can turn an ordinary shot into a powerful story.",
+      "body": "Natural light gives your photos a more genuine feel, brings out true colours and adds depth without extra editing.",
+      "tip": "Shoot near windows, during golden hours, or in open shade for the best results."
+    },
+    {
+      "headline": "A clean background does half the work for you.",
+      "body": "When nothing behind the subject competes for attention, the viewer looks exactly where you intended.",
+      "tip": "Move two steps sideways before you zoom — the angle you change is usually the background."
+    }
+  ]
+}

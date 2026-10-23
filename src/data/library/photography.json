@@ -1,0 +1,192 @@
+{
+  "id": "photography",
+  "label": "PHOTOGRAPHY TIP",
+  "active": true,
+  "directions": [
+    {
+      "id": "practical-tips",
+      "label": "Practical Tips",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Give one concrete, immediately usable technique. The reader should be able to apply it today with any camera, including a phone. Always mention where or when to try it.",
+      "subjects": [
+        {
+          "id": "natural-lighting",
+          "label": "Natural lighting",
+          "guidance": "Direction, quality and timing of natural light: window light, golden hour, open shade, overcast diffusion, and how light direction changes the mood of a portrait.",
+          "imageTags": ["photography", "camera", "light", "golden hour"],
+          "active": true
+        },
+        {
+          "id": "composition-framing",
+          "label": "Composition and framing",
+          "guidance": "Framing decisions: leading lines, foreground layers, symmetry, negative space, and choosing what to leave OUT of the frame.",
+          "imageTags": ["photography", "composition", "viewfinder"],
+          "active": true
+        },
+        {
+          "id": "background-control",
+          "label": "Background selection",
+          "guidance": "Controlling what sits behind the subject: clean backgrounds, colour clashes, distracting elements, and moving your feet instead of zooming.",
+          "imageTags": ["photography", "background", "camera"],
+          "active": true
+        },
+        {
+          "id": "portrait-distance",
+          "label": "Portrait distance and lens choice",
+          "guidance": "How shooting distance changes facial perspective; why standing closer with a wider frame feels more intimate than zooming from far away.",
+          "imageTags": ["photography", "portrait", "lens"],
+          "active": true
+        },
+        {
+          "id": "event-coverage",
+          "label": "Photographing events",
+          "guidance": "Coverage thinking: arriving early, reading the room's key moments, working with available light, and backing up on site.",
+          "imageTags": ["photography", "event", "coverage"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "common-mistakes",
+      "label": "Common Mistakes",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Name a real mistake beginners make, explain briefly why it hurts the image, and give the fix. Never shame the reader — everyone started there.",
+      "subjects": [
+        {
+          "id": "missed-focus",
+          "label": "Missed focus",
+          "guidance": "Focus point selection, eye-focus in portraits, shutter speed sufficiency, and why focusing and recomposing can shift the plane of focus.",
+          "imageTags": ["photography", "focus", "lens", "camera"],
+          "active": true
+        },
+        {
+          "id": "distracting-backgrounds",
+          "label": "Distracting backgrounds",
+          "guidance": "Trees growing out of heads, bright corners stealing attention, clutter behind subjects — and the two-step fix of angle and aperture.",
+          "imageTags": ["photography", "background"],
+          "active": true
+        },
+        {
+          "id": "flat-exposure",
+          "label": "Flat exposure decisions",
+          "guidance": "Trusting auto exposure on high-contrast scenes, losing highlights that cannot be recovered, and exposing for the subject instead of the scene.",
+          "imageTags": ["photography", "camera", "exposure"],
+          "active": true
+        },
+        {
+          "id": "too-many-shots",
+          "label": "Spray and pray",
+          "guidance": "Burst-shooting through a moment instead of anticipating it; why slowing down produces better frames and a cleaner card.",
+          "imageTags": ["photography", "camera"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "mini-lessons",
+      "label": "Mini Lessons",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Teach one concept properly in under 60 words: name it, explain the mechanism simply, show how to see it. Keep it technique-based, never historical or statistical.",
+      "subjects": [
+        {
+          "id": "rule-of-thirds",
+          "label": "The rule of thirds",
+          "guidance": "What the grid actually does for balance, when to break it deliberately (centred symmetry, clean minimalism), and why it is a starting point, not a law.",
+          "imageTags": ["photography", "composition"],
+          "active": true
+        },
+        {
+          "id": "depth-of-field",
+          "label": "Depth of field",
+          "guidance": "How aperture, distance and focal length jointly control what is sharp; why background separation is more about distance than aperture alone.",
+          "imageTags": ["photography", "lens", "focus"],
+          "active": true
+        },
+        {
+          "id": "shutter-speed",
+          "label": "Shutter speed",
+          "guidance": "Freezing motion vs intentionally blurring it; how shutter speed is a creative decision about movement, not just a brightness setting.",
+          "imageTags": ["photography", "camera", "motion"],
+          "active": true
+        },
+        {
+          "id": "light-and-exposure",
+          "label": "Light and exposure",
+          "guidance": "Exposure as a conversation between aperture, shutter and ISO; how seeing light as quantity changes the way you walk into a scene.",
+          "imageTags": ["photography", "light", "exposure"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "business-connection",
+      "label": "For Your Business",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Connect photography craft to a business outcome a client cares about — product sales, brand trust, team image, event memory. Teach first; the value of hiring a professional should be implied, never pitched.",
+      "subjects": [
+        {
+          "id": "product-photography",
+          "label": "Product photography",
+          "guidance": "How clean product images reduce buyer doubt: consistent backgrounds, honest colour, showing scale and detail.",
+          "imageTags": ["photography", "product", "studio"],
+          "active": true
+        },
+        {
+          "id": "brand-consistency",
+          "label": "Brand presentation",
+          "guidance": "Why consistent visual treatment across photos builds recognition; how a business can define its own light, colour and mood standards.",
+          "imageTags": ["photography", "brand"],
+          "active": true
+        },
+        {
+          "id": "business-portraits",
+          "label": "Business portraits",
+          "guidance": "What makes a professional portrait work: approachable expression, clean context, consistent crop; why team photos should look like one family.",
+          "imageTags": ["photography", "portrait", "business"],
+          "active": true
+        },
+        {
+          "id": "event-documentation",
+          "label": "Professional event coverage",
+          "guidance": "The difference between snapshots and documentation: key-moment anticipation, stakeholder coverage lists, and delivery reliability.",
+          "imageTags": ["photography", "event", "coverage"],
+          "active": true
+        }
+      ]
+    },
+    {
+      "id": "conversation-starters",
+      "label": "Let's Talk Photography",
+      "slotProfile": "lesson",
+      "budget": { "headline": 12, "body": 22, "tip": 14, "closing": 5 },
+      "guidance": "Ask an inviting question about how people shoot or choose photos today. Keep it answerable in one sentence and friendly, never survey-like.",
+      "subjects": [
+        {
+          "id": "favourite-photos",
+          "label": "Favourite photos",
+          "guidance": "Questions about which photos people keep coming back to and why memory attaches to certain frames.",
+          "imageTags": ["photography", "memories"],
+          "active": true
+        },
+        {
+          "id": "phone-vs-camera",
+          "label": "Phone vs camera",
+          "guidance": "The friendly debate: when the phone in the pocket is the right tool, and what a dedicated camera still does better.",
+          "imageTags": ["photography", "camera", "phone"],
+          "active": true
+        },
+        {
+          "id": "creative-challenges",
+          "label": "Creative challenges",
+          "guidance": "Small prompts readers can try this week — one subject, one light source, ten frames — framed as play, not homework.",
+          "imageTags": ["photography", "creative"],
+          "active": true
+        }
+      ]
+    }
+  ]
+}
