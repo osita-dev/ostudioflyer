@@ -10,6 +10,7 @@ import { recentGists } from "@/domain/selectors";
 import type { SubjectChoice } from "@/domain/selectors";
 import type { ContentRecord, PipelineStage } from "@/domain/types";
 import { callGenerate, ProxyError } from "@/services/proxy";
+import { generateAiImage, ImageGenError } from "@/services/imagegen";
 
 export interface StageInfo {
   stage: PipelineStage;
@@ -23,6 +24,7 @@ export interface GenErrorInfo {
 
 function toErrorInfo(err: unknown): GenErrorInfo {
   if (err instanceof ProxyError) return { message: err.message, hint: err.hint };
+  if (err instanceof ImageGenError) return { message: err.message, hint: err.hint };
   if (err instanceof GenerationError) {
     return {
       message:
@@ -43,19 +45,25 @@ export function useGeneration() {
   const [stageInfo, setStageInfo] = useState<StageInfo | null>(null);
 
   const mutation = useMutation({
-    mutationFn: async (args: { pick: SubjectChoice; records: ContentRecord[] }) =>
+    mutationFn: async (args: {
+      pick: SubjectChoice;
+      records: ContentRecord[];
+      imageMode: "ai" | "curated";
+    }) =>
       runGeneration({
         records: args.records,
         pick: args.pick,
         generate: callGenerate,
+        imageMode: args.imageMode,
+        generateImage: args.imageMode === "ai" ? generateAiImage : undefined,
         onStage: (stage, detail) => setStageInfo({ stage, detail }),
       }),
   });
 
   const start = useCallback(
-    (pick: SubjectChoice, records: ContentRecord[]) => {
+    (pick: SubjectChoice, records: ContentRecord[], imageMode: "ai" | "curated") => {
       setStageInfo(null);
-      mutation.mutate({ pick, records });
+      mutation.mutate({ pick, records, imageMode });
     },
     [mutation]
   );

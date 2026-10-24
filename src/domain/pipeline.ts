@@ -11,16 +11,19 @@ import { matchImage } from "./matching";
 import { recommend, recentGists, type SubjectChoice } from "./selectors";
 import { validateGeneration } from "./validation";
 import type {
+  AiImage,
   ContentRecord,
   GeneratePayload,
+  ImageGenPayload,
   ModelOutput,
   PipelineStage,
   Variant,
 } from "./types";
-
 export type GenerateFn = (
   payload: GeneratePayload
 ) => Promise<{ content: ModelOutput; meta: { model: string; promptVersion: string } }>;
+
+export type GenerateImageFn = (payload: ImageGenPayload) => Promise<AiImage>;
 
 export class GenerationError extends Error {
   kind: "network" | "rejected" | "empty";
@@ -35,6 +38,9 @@ export interface RunOptions {
   records: ContentRecord[];
   pick: SubjectChoice;
   generate: GenerateFn;
+  /** Side illustration source. "ai" degrades to curated if generation fails. */
+  imageMode: "ai" | "curated";
+  generateImage?: GenerateImageFn;
   onStage: (stage: PipelineStage, detail?: string) => void;
 }
 
@@ -143,19 +149,44 @@ export async function runGeneration(opts: RunOptions): Promise<ContentRecord> {
       }
     }
 
-    // S5 — image match
-    opts.onStage("matching", "Finding an illustration for this subject");
+    // S5 — illustration. AI mode degrades to a curated match on failure: the
+    // text already succeeded (and cost money), so an image problem must never
+    // discard the draft — it falls back, loudly via the stage detail.
     const wantsImage = pick.direction.slotProfile === "lesson";
-    const image = wantsImage
-      ? matchImage(images, pick.category.id, pick.subject, output.imageTags)
-      : null;
+    let aiImage: AiImage | null = null;
+    let image = null;
+    if (wantsImage && opts.imageMode === "ai" && opts.generateImage) {
+      opts.onStage("matching", "Creating an AI illustration for this subject");
+      try {
+        aiImage = await opts.generateImage({
+          category: { label: pick.category.label },
+          direction: { label: pick.direction.label, guidance: pick.direction.guidance },
+          subject: {
+            label: pick.subject.label,
+            guidance: pick.subject.guidance,
+            imageTags: pick.subject.imageTags,
+          },
+          imageTags: output.imageTags,
+        });
+      } catch (err) {
+        // Readable fallback: keep the draft, use a curated photo, say so.
+        const why = err instanceof Error ? err.message : String(err);
+        console.error("AI image failed — falling back to curated:", why);
+        opts.onStage("matching", `AI image unavailable — using a curated photo instead`);
+        image = matchImage(images, pick.category.id, pick.subject, output.imageTags);
+      }
+    } else if (wantsImage) {
+      opts.onStage("matching", "Finding an illustration for this subject");
+      image = matchImage(images, pick.category.id, pick.subject, output.imageTags);
+    }
 
     // S6 — variant resolution (the renderer computes final geometry)
-    opts.onStage("layout", image ? "lesson" : "text-only");
+    const hasImage = !!(aiImage ?? image);
+    opts.onStage("layout", hasImage ? "lesson" : "text-only");
     const variant: Variant =
       pick.direction.slotProfile === "announcement"
         ? "announcement"
-        : image
+        : hasImage
           ? "lesson"
           : "text-only";
 
@@ -183,6 +214,7 @@ export async function runGeneration(opts: RunOptions): Promise<ContentRecord> {
       },
       gist: output.gist,
       imageId: image?.id ?? null,
+      ...(aiImage ? { aiImage } : {}),
       imageTags: output.imageTags,
       meta: {
         model: meta.model,

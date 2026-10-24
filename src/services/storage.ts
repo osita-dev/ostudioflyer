@@ -15,7 +15,7 @@ const DEFAULT_DB: Db = {
   v: 1,
   records: [],
   currentId: null,
-  settings: { seenNotices: [], lastCategory: null },
+  settings: { seenNotices: [], lastCategory: null, imageMode: "ai" },
 };
 
 function sanitizeRecord(r: unknown): r is ContentRecord {
@@ -44,6 +44,7 @@ function load(): Db {
       settings: {
         seenNotices: Array.isArray(parsed.settings?.seenNotices) ? parsed.settings.seenNotices : [],
         lastCategory: parsed.settings?.lastCategory ?? null,
+        imageMode: parsed.settings?.imageMode === "curated" ? "curated" : "ai",
       },
     };
   } catch {

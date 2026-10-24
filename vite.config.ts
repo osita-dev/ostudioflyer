@@ -13,16 +13,24 @@ import type { IncomingMessage, ServerResponse } from "node:http"
  * Vercel serves the actual function after deploy.
  */
 function apiDevBridge() {
+  // Map URL path → the serverless module that handles it.
+  const ROUTES: Record<string, string> = {
+    "/api/generate": "/api/generate.ts",
+    "/api/image": "/api/image.ts",
+  }
   return {
     name: "ostudio-api-dev-bridge",
     apply: "serve" as const,
     configureServer(server: import("vite").ViteDevServer) {
-      console.log("  [ostudio] dev bridge armed → POST /api/generate runs api/generate.ts")
+      console.log(
+        "  [ostudio] dev bridge armed → POST /api/generate | /api/image run their api/*.ts handlers",
+      )
 
       server.middlewares.use(
         (req: IncomingMessage, res: ServerResponse, next: () => void) => {
           const pathOnly = (req.url ?? "").split("?")[0]
-          if (req.method !== "POST" || pathOnly !== "/api/generate") {
+          const modulePath = pathOnly ? ROUTES[pathOnly] : undefined
+          if (req.method !== "POST" || !modulePath) {
             next() // not ours — pass through to Vite
             return
           }
@@ -57,8 +65,8 @@ function apiDevBridge() {
                 }
               }
 
-              console.log("  [ostudio] POST /api/generate → loading api/generate.ts …")
-              const mod = await server.ssrLoadModule("/api/generate.ts")
+              console.log(`  [ostudio] POST ${pathOnly} → loading ${modulePath} …`)
+              const mod = await server.ssrLoadModule(modulePath)
               const handler = mod.default as (
                 r: { method?: string; body?: unknown },
                 x: { status: (c: number) => { json: (b: unknown) => void } },

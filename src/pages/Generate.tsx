@@ -41,8 +41,9 @@ const TIER_HINT: Record<Tier, string> = {
 
 const Generate = () => {
   const navigate = useNavigate();
-  const { records, saveDraft } = useStudio();
+  const { records, saveDraft, settings, updateSettings } = useStudio();
   const { start, isPending, error, record, stageInfo, reset } = useGeneration();
+  const imageMode = settings.imageMode;
 
   const categories = getActiveLibrary();
   const [rec] = useState(() => recommend(records));
@@ -137,7 +138,7 @@ const Generate = () => {
               className="bg-gold text-black hover:bg-gold/90"
               onClick={() => {
                 reset();
-                if (pickReady && pick) start(pick, records);
+                if (pickReady && pick) start(pick, records, imageMode);
               }}
             >
               Try again
@@ -239,6 +240,34 @@ const Generate = () => {
             </p>
           </div>
 
+          {/* 4. Illustration source */}
+          <div className="space-y-1.5">
+            <label className="text-[13px] font-medium">4. Illustration</label>
+            <div className="grid grid-cols-2 gap-2">
+              <Button
+                variant={imageMode === "ai" ? "default" : "outline"}
+                size="sm"
+                className={imageMode === "ai" ? "bg-gold text-black hover:bg-gold/90" : "border-gold/30"}
+                onClick={() => updateSettings({ imageMode: "ai" })}
+              >
+                <Sparkles className="h-3.5 w-3.5" /> AI image
+              </Button>
+              <Button
+                variant={imageMode === "curated" ? "default" : "outline"}
+                size="sm"
+                className={imageMode === "curated" ? "bg-gold text-black hover:bg-gold/90" : "border-gold/30"}
+                onClick={() => updateSettings({ imageMode: "curated" })}
+              >
+                Curated photos
+              </Button>
+            </div>
+            <p className="text-[11px] text-muted-foreground">
+              {imageMode === "ai"
+                ? "A fresh illustration is created for the side panel. If it can't be created, a curated photo is used automatically."
+                : "A photo is matched from the curated library by subject and tags."}
+            </p>
+          </div>
+
           <div className="flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-[12px] text-muted-foreground">
             <Zap className="h-3.5 w-3.5 text-gold" />
             {rec
@@ -251,7 +280,7 @@ const Generate = () => {
             size="lg"
             className="w-full bg-gold text-black hover:bg-gold/90"
             disabled={!pickReady}
-            onClick={() => pickReady && pick && start(pick, records)}
+            onClick={() => pickReady && pick && start(pick, records, imageMode)}
           >
             <Sparkles className="h-4 w-4" /> Continue
           </Button>

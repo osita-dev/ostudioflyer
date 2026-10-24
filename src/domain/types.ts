@@ -103,12 +103,29 @@ export interface ContentRecord {
   content: GenerationContent;
   gist: string;
   imageId: string | null;
+  /** AI illustration (FLUX) — downscaled JPEG data URL, mutually exclusive with imageId. */
+  aiImage?: AiImage;
   imageTags: string[];
   meta: {
     model: string;
     repairPasses: number;
     promptVersion: string;
   };
+}
+
+/** An AI-generated side illustration stored ON the record (restore = no network). */
+export interface AiImage {
+  /** JPEG data URL (downscaled to flyer needs — keeps localStorage affordable). */
+  src: string;
+  model: string;
+}
+
+/** POST /api/image request body — prompt assembled server-side from this. */
+export interface ImageGenPayload {
+  category: { label: string };
+  direction: { label: string; guidance: string };
+  subject: { label: string; guidance: string; imageTags: string[] };
+  imageTags: string[];
 }
 
 /** POST /api/generate request body (§8.6). The prompt is assembled server-side. */
@@ -148,6 +165,8 @@ export type PipelineStage =
 export interface AppSettings {
   seenNotices: string[];
   lastCategory: string | null;
+  /** Where the side illustration comes from. AI falls back to curated on failure. */
+  imageMode: "ai" | "curated";
 }
 
 export interface Db {

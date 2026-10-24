@@ -19,6 +19,7 @@ import {
   MessageCircle,
   Music2,
   Pencil,
+  RefreshCw,
   Send,
   Share2,
   Sparkles,
@@ -45,8 +46,9 @@ import { useFlyer } from "@/hooks/use-flyer";
 import { useStudio } from "@/hooks/use-studio";
 import { composeCaption } from "@/domain/caption";
 import { exhaustedCategories } from "@/domain/selectors";
-import { getDirection } from "@/domain/library";
+import { getDirection, getSubject } from "@/domain/library";
 import { exportFlyerPng, renderFlyerPng, slugName } from "@/services/exporter";
+import { generateAiImage, ImageGenError } from "@/services/imagegen";
 import {
   SOCIALS,
   canShareFiles,
@@ -69,11 +71,12 @@ const PLATFORM_ICONS: Record<string, LucideIcon> = {
 
 const Index = () => {
   const navigate = useNavigate();
-  const { records, current, transition } = useStudio();
+  const { records, current, transition, patchDraft } = useStudio();
   const { layout, shell, subjectImage, imageBroken } = useFlyer(current);
 
   const [previewW, setPreviewW] = useState(300);
   const [exporting, setExporting] = useState(false);
+  const [rerolling, setRerolling] = useState(false);
   const [fonts, setFonts] = useState<FontStatus | null>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
@@ -171,6 +174,41 @@ const Index = () => {
     },
     [current]
   );
+
+  /** Re-roll just the AI illustration for a draft — text stays untouched. */
+  const handleRerollImage = useCallback(async () => {
+    if (!current || current.status !== "draft") return;
+    const subject = getSubject(
+      current.source.categoryId,
+      current.source.directionId,
+      current.source.subjectId
+    );
+    const direction = getDirection(current.source.categoryId, current.source.directionId);
+    if (!subject || !direction) {
+      toast.error("This subject is no longer in the library — can't rebuild the prompt.");
+      return;
+    }
+    setRerolling(true);
+    try {
+      const aiImage = await generateAiImage({
+        category: { label: current.content.label },
+        direction: { label: direction.label, guidance: direction.guidance },
+        subject: {
+          label: subject.label,
+          guidance: subject.guidance,
+          imageTags: subject.imageTags,
+        },
+        imageTags: current.imageTags,
+      });
+      patchDraft(current.id, { aiImage, imageId: null });
+      toast.success("New illustration created.");
+    } catch (err) {
+      const e = err as ImageGenError;
+      toast.error(e.message || "Couldn't create a new image.", { description: e.hint });
+    } finally {
+      setRerolling(false);
+    }
+  }, [current, patchDraft]);
 
   // Keyboard shortcuts (step 06): G generate · D download · C caption
   useEffect(() => {
@@ -326,6 +364,20 @@ const Index = () => {
                   </Button>
                 )}
               </div>
+
+              {/* Re-roll the AI illustration (drafts, image-bearing variants only) */}
+              {current.status === "draft" && current.variant !== "announcement" && (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full border-gold/30 text-muted-foreground hover:bg-gold/10 hover:text-gold"
+                  disabled={rerolling}
+                  onClick={() => void handleRerollImage()}
+                >
+                  <RefreshCw className={`h-3.5 w-3.5 ${rerolling ? "animate-spin" : ""}`} />
+                  {rerolling ? "Creating a new illustration…" : "New illustration"}
+                </Button>
+              )}
 
               {/* Share to socials */}
               <div className="space-y-2.5 border-t border-border pt-4">
